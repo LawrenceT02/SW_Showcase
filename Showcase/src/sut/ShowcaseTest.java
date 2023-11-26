@@ -41,46 +41,156 @@ class ShowcaseTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		driver.close();
-	}
-
-	@Test
-	void baseCaseCreateAccountTest() {
-//		[value, ntv6jq@virginia.edu (valid), Abc123!@#, match, clicked]
-		driver.findElement(By.linkText("Create an Account")).click();
-		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
-		driver.findElement(By.id("lastname")).sendKeys("Vo");
-		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
-		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
-		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-		
-		if(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/customer/account/create/")){
-			System.out.println("HERE");
-			driver.findElement(By.linkText("Sign In")).click();
-			driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia.edu");
-			driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
-			driver.findElement(By.id("send2")).click();
-		}
-		
-		assertTrue(driver.getPageSource().contains("Tunhi Vo"));
-		assertTrue(driver.getPageSource().contains("ntv6jq@virginia.edu"));
+//		driver.close();
 	}
 	
-	@Test
-	void NameInvalidEmailSubmitTest() {
-//		[value, abcdef (invalid), Abc123!@#, match, clicked]
-		driver.findElement(By.linkText("Create an Account")).click();
-		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
-		driver.findElement(By.id("lastname")).sendKeys("Vo");
-		driver.findElement(By.id("email_address")).sendKeys("abcdef");
-		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
-		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-		
-		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("Please enter a valid email address (Ex: johndoe@domain.com)."));
-	}
+////////////////////////////////////////// Create Account Page Test //////////////////////////////////////////////////////////////
+	
+////	lt6vc
+//	@Test
+//	void baseCaseCreateAccountTest() {
+////		[value, ntv6jq@virginia.edu (valid), Abc123!@#, match, clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+//		driver.findElement(By.id("lastname")).sendKeys("Vo");
+//		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
+//		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		
+//		if(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/customer/account/create/")){
+//			System.out.println("HERE");
+//			driver.findElement(By.linkText("Sign In")).click();
+//			driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia.edu");
+//			driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
+//			driver.findElement(By.id("send2")).click();
+//		}
+//		
+//		assertTrue(driver.getPageSource().contains("Tunhi Vo"));
+//		assertTrue(driver.getPageSource().contains("ntv6jq@virginia.edu"));
+//	}
+	
+////	lt6vc
+//	@Test
+//	void noNameValidEmailStrongPasswordMatchedSubmitTest() {
+////		[no value, abc@outlook.com (valid), Abc123!@#, match, clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("email_address")).sendKeys("abc@outlook.com");
+//		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		assertEquals("This is a required field.", driver.findElement(By.id("firstname-error")).getText());
+//	}
+	
+////	lt6vc
+//	@Test
+//	void NameInvalidEmailStrongPasswordMatchedSubmitTest() {
+////		[value, abcdef (invalid), Abc123!@#, match, clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+//		driver.findElement(By.id("lastname")).sendKeys("Vo");
+//		driver.findElement(By.id("email_address")).sendKeys("abcdef");
+//		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		
+//		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("Please enter a valid email address (Ex: johndoe@domain.com)."));
+//	}
+	
+//	//lt6vc
+//	@Test
+//	void NameInvalidEmailWeakPasswordMatchedSubmitTest() {
+//	//	[value, ntv6jq@virginia.edu (valid), abcdef (weak passwd), match, clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+//		driver.findElement(By.id("lastname")).sendKeys("Vo");
+//		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
+//		driver.findElement(By.id("password")).sendKeys("abcdef");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("abcdef");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//	
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		assertEquals("Minimum length of this field must be equal or greater than 8 symbols. Leading and trailing spaces will be ignored.",
+//				driver.findElement(By.id("password-error")).getText());
+//		
+//	}
+	
+//	//lt6vc
+//	@Test
+//	void NameInvalidEmailStrongPasswordNotMatchedSubmitTest() {
+//	//	[value, ntv6jq@virginia.edu (valid), Abc123!@#, not matched, clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+//		driver.findElement(By.id("lastname")).sendKeys("Vo");
+//		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
+//		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("abcdef");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//	
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		
+//		assertEquals("Please enter the same value again.",
+//				driver.findElement(By.id("password-confirmation-error")).getText());
+//	}
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+////////////////////////////////////////// Sign in Page //////////////////////////////////////////////////////////////////////////
+	
+//	//lt6vc
+//	@Test
+//	void baseCaseSignInPageTest() {
+//	//	[value, ntv6jq@virginia.edu (valid), Abc123!@#, not matched, clicked]
+//		driver.findElement(By.linkText("Sign In")).click();
+//		driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia.edu");
+//		driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("send2")).click();
+//		
+//		if(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/")) { 		// successful login
+//			driver.get("https://magento.softwaretestingboard.com/customer/account/");
+//			assertTrue(driver.getPageSource().contains("My Account"));
+//			assertTrue(driver.getPageSource().contains("Tunhi Vo"));
+//		}
+//		else {																					// key error
+//			driver.findElement(By.linkText("Sign In")).click();
+//			driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia.edu");
+//			driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
+//			driver.findElement(By.id("send2")).click();
+//			assertTrue(driver.getPageSource().contains("My Account"));
+//			assertTrue(driver.getPageSource().contains("Tunhi Vo"));
+//		}
+//	}
+	
+//	//lt6vc
+//	@Test
+//	void valueInvalidEmailCorrectPasswdSubmitTest() {
+//	//	[filled boxes, ntv6jq@virginia (invalid), Abc123!@#, clicked]
+//		driver.findElement(By.linkText("Sign In")).click();
+//		driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia");
+//		driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("send2")).click();
+//		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
+//		
+//		// if fails try or'ing t with line below:
+////		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("Please enter a valid email address (Ex: johndoe@domain.com)."));
+//	}
+	
+//	//lt6vc
+//	@Test
+//	void valueValidEmailWrongPasswdSubmitTest() {
+//	//	[filled boxes, ntv6jq@virginia.edu (valid), abcdef (incorrect passwd), clicked]
+//		driver.findElement(By.linkText("Sign In")).click();
+//		driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia.edu");
+//		driver.findElement(By.id("pass")).sendKeys("abcdef");
+//		driver.findElement(By.id("send2")).click();
+//		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
+//		
+//	}
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
