@@ -166,7 +166,7 @@ class ShowcaseTest {
 	
 //	//lt6vc
 //	@Test
-//	void valueInvalidEmailCorrectPasswdSubmitTest() {
+//	void valueInvalidCorrectEmailCorrectPasswdSubmitTest() {
 //	//	[filled boxes, ntv6jq@virginia (invalid), Abc123!@#, clicked]
 //		driver.findElement(By.linkText("Sign In")).click();
 //		driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia");
@@ -180,7 +180,19 @@ class ShowcaseTest {
 	
 //	//lt6vc
 //	@Test
-//	void valueValidEmailWrongPasswdSubmitTest() {
+//	void valueValidIncorrectEmailWrongPasswdSubmitTest() {
+//	//	[filled boxes, lt6vc@virginia.edu (incorrect email), Abc123!@#, clicked]
+//		driver.findElement(By.linkText("Sign In")).click();
+//		driver.findElement(By.id("email")).sendKeys("lt6vc@virginia.edu");
+//		driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("send2")).click();
+//		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
+//		
+//	}
+	
+//	//lt6vc
+//	@Test
+//	void valueValidCorrectEmailWrongPasswdSubmitTest() {
 //	//	[filled boxes, ntv6jq@virginia.edu (valid), abcdef (incorrect passwd), clicked]
 //		driver.findElement(By.linkText("Sign In")).click();
 //		driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia.edu");
@@ -190,6 +202,29 @@ class ShowcaseTest {
 //		
 //	}
 	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+////////////////////////////////////////////// Search Bar Function ///////////////////////////////////////////////////////////////
+	
+//	//lt6vc
+//	@Test
+//	void valueAlphabeticalValidSearchSubmitTest() {
+//	//	[filled boxes, ntv6jq@virginia.edu (valid), abcdef (incorrect passwd), clicked]
+//		driver.findElement(By.id("search")).sendKeys("hoodies for women");
+//		driver.findElement(By.id("search")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.className("product-image-photo")).isDisplayed());
+//	}
+	
+//	//lt6vc
+//	@Test
+//	void valueAlphabeticalInvalidSearchSubmitTest() {
+//	//	[filled boxes, ntv6jq@virginia.edu (valid), abcdef (incorrect passwd), clicked]
+//		driver.findElement(By.id("search")).sendKeys("tower");
+//		driver.findElement(By.id("search")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div[1]/div[2]/div")).isDisplayed());
+//		
+//	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
