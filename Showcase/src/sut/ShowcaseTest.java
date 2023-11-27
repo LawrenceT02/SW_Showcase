@@ -26,6 +26,7 @@ import org.openqa.selenium.JavascriptExecutor;
 class ShowcaseTest {
 	private WebDriver driver;
 	private String url = "https://magento.softwaretestingboard.com/";
+	JavascriptExecutor js;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -53,11 +54,11 @@ class ShowcaseTest {
 	}
 	
 ////////////////////////////////////////// Create Account Page Test //////////////////////////////////////////////////////////////
-	
+
 //	lt6vc
 	@Test
 	void baseCaseCreateAccountTest() {
-//		[value, ntv6jq@virginia.edu (valid), Abc123!@#, match, clicked]
+//	[TuNhi, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123!@# (match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
@@ -67,6 +68,7 @@ class ShowcaseTest {
 		driver.findElement(By.cssSelector(".action.submit.primary")).click();
 		
 		if(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/customer/account/create/")){
+			System.out.println("HERE");
 			driver.findElement(By.linkText("Sign In")).click();
 			driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia.edu");
 			driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
@@ -79,9 +81,10 @@ class ShowcaseTest {
 	
 //	lt6vc
 	@Test
-	void noNameValidEmailStrongPasswordMatchedSubmitTest() {
-//		[no value, abc@outlook.com (valid), Abc123!@#, match, clicked]
+	void noFirstNameValidEmailStrongPasswordMatchedSubmitTest() {
+//		[��, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123!@# (match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("abc@outlook.com");
 		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
 		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
@@ -89,14 +92,28 @@ class ShowcaseTest {
 		assertEquals("This is a required field.", driver.findElement(By.id("firstname-error")).getText());
 	}
 	
+	
+	//lt6vc
+	@Test
+	void noLastNameValidEmailStrongPasswordMatchedSubmitTest() {
+	//	[no value, abc@outlook.com (valid), Abc123!@#, match, clicked]
+		driver.findElement(By.linkText("Create an Account")).click();
+		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+		driver.findElement(By.id("email_address")).sendKeys("abc@outlook.com");
+		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+		assertEquals("This is a required field.", driver.findElement(By.id("lastname-error")).getText());
+	}
+	
 //	lt6vc
 	@Test
 	void NameInvalidEmailStrongPasswordMatchedSubmitTest() {
-//		[value, abcdef (invalid), Abc123!@#, match, clicked]
+//	[TuNhi, Vo, ntv6jq (invalid), Abc123!@#, Abc123!@# (match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
-		driver.findElement(By.id("email_address")).sendKeys("abcdef");
+		driver.findElement(By.id("email_address")).sendKeys("ntv6jq");
 		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
 		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
 		driver.findElement(By.cssSelector(".action.submit.primary")).click();
@@ -108,8 +125,59 @@ class ShowcaseTest {
 	
 	//lt6vc
 	@Test
+	void NameEmptyEmailStrongPasswordMatchedSubmitTest() {
+	//[TuNhi, Vo, "", Abc123!@#, Abc123!@# (match), clicked]
+		driver.findElement(By.linkText("Create an Account")).click();
+		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+		driver.findElement(By.id("lastname")).sendKeys("Vo");
+		driver.findElement(By.id("email_address")).sendKeys("");
+		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+	
+		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+		
+		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("This is a required field."));
+	}
+	
+	//ntv6jq
+	@Test
+	void NameValidEmailNoPasswordMatchedSubmitTest() {
+	//[TuNhi, Vo, ntv6jq@virginia.edu (valid), ��, Abc123!@# (match), clicked]
+		driver.findElement(By.linkText("Create an Account")).click();
+		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+		driver.findElement(By.id("lastname")).sendKeys("Vo");
+		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
+		driver.findElement(By.id("password")).sendKeys("");
+		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+	
+		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+		
+		assertTrue(driver.findElement(By.id("password-error")).getText().equals("This is a required field."));
+	}
+	
+	//ntv6jq
+	@Test
+	void NameValidEmailPasswordEmptyMatchSubmitTest() {
+	//[TuNhi, Vo, ntv6jq@virginia.edu (valid),Abc123!@#, ��,(match), clicked]
+		driver.findElement(By.linkText("Create an Account")).click();
+		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+		driver.findElement(By.id("lastname")).sendKeys("Vo");
+		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
+		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+		driver.findElement(By.id("password-confirmation")).sendKeys("");
+		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+	
+		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+		
+		assertTrue(driver.findElement(By.id("password-confirmation-error")).getText().equals("This is a required field."));
+	}
+	
+	//lt6vc
+	@Test
 	void NameInvalidEmailWeakPasswordMatchedSubmitTest() {
-	//	[value, ntv6jq@virginia.edu (valid), abcdef (weak passwd), match, clicked]
+	//	[TuNhi, Vo, ntv6jq@virginia.edu (valid), abcdef, abcdef(match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
@@ -127,7 +195,7 @@ class ShowcaseTest {
 	//lt6vc
 	@Test
 	void NameInvalidEmailStrongPasswordNotMatchedSubmitTest() {
-	//	[value, ntv6jq@virginia.edu (valid), Abc123!@#, not matched, clicked]
+	//	[TuNhi, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123 (unmatched), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
@@ -140,13 +208,12 @@ class ShowcaseTest {
 		
 		assertEquals("Please enter the same value again.",
 				driver.findElement(By.id("password-confirmation-error")).getText());
-	}
+	}	
 	
-	
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 ////////////////////////////////////////// Sign in Page //////////////////////////////////////////////////////////////////////////
-	
 	//lt6vc
 	@Test
 	void baseCaseSignInPageTest() {
@@ -208,8 +275,6 @@ class ShowcaseTest {
 		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
 		
 	}
-	
-	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 ////////////////////////////////////////////// Search Bar Function ///////////////////////////////////////////////////////////////
@@ -233,8 +298,9 @@ class ShowcaseTest {
 		
 	}
 	
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 ////////////////////////////////////////////// Add to Cart From Gear ///////////////////////////////////////////////////////
 	//lt6vc
 	@Test
@@ -293,10 +359,10 @@ class ShowcaseTest {
 		assertTrue(driver.getPageSource().contains("You have no items in your shopping cart"));
 	}
 	
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-////////////////////////////////////////////// Advanced Search ///////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////// Advanced Search ///////////////////////////////////////////////////////////////////
 //	ntv6jq
 	@Test	 
 	void advanceBase() { 
@@ -473,6 +539,7 @@ class ShowcaseTest {
 		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
 		assertTrue(driver.getPageSource().contains("Jacket"));
 	}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -1110,6 +1177,84 @@ class ShowcaseTest {
 		
 	}
 	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+//////////////////////////////////////////////Writing a Review//////////////////////////////////////////////////////////////////////////
+
+	//ntv6jq
+	@Test	
+	void reviewBase() { 	
+		js = (JavascriptExecutor) driver;
+		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+		driver.findElement(By.id("tab-label-reviews")).click();
+		WebElement element = driver.findElement(By.id("Rating_5"));
+		js.executeScript("arguments[0].click();", element);
+		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
+		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
+		driver.findElement(By.id("review_field")).sendKeys("This is a review");
+		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[1]/div[2]/div/div")).isDisplayed());
+	}
+	
+	//ntv6jq
+	@Test	 
+	void reviewNostars() { 	
+		js = (JavascriptExecutor) driver;
+		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+		driver.findElement(By.id("tab-label-reviews")).click();
+		WebElement element = driver.findElement(By.id("Rating_5"));
+		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
+		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
+		driver.findElement(By.id("review_field")).sendKeys("This is a review");
+		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+	}
+	
+	//ntv6jq
+	@Test	 
+	void reviewEmptyName() { 	
+		js = (JavascriptExecutor) driver;
+		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+		driver.findElement(By.id("tab-label-reviews")).click();
+		WebElement element = driver.findElement(By.id("Rating_5"));
+		js.executeScript("arguments[0].click();", element);
+		driver.findElement(By.id("nickname_field")).sendKeys("");
+		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
+		driver.findElement(By.id("review_field")).sendKeys("This is a review");
+		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+	}
+	
+	//ntv6jq
+	@Test	 
+	void reviewEmptySummary() { 	
+		js = (JavascriptExecutor) driver;
+		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+		driver.findElement(By.id("tab-label-reviews")).click();
+		WebElement element = driver.findElement(By.id("Rating_5"));
+		js.executeScript("arguments[0].click();", element);
+		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
+		driver.findElement(By.id("summary_field")).sendKeys("");
+		driver.findElement(By.id("review_field")).sendKeys("This is a review");
+		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+	}
+	
+	//ntv6jq
+	@Test	 
+	void reviewEmptyReview() { 	
+		js = (JavascriptExecutor) driver;
+		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+		driver.findElement(By.id("tab-label-reviews")).click();
+		WebElement element = driver.findElement(By.id("Rating_5"));
+		js.executeScript("arguments[0].click();", element);
+		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
+		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
+		driver.findElement(By.id("review_field")).sendKeys("");
+		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+	}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
