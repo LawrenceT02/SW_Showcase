@@ -54,11 +54,11 @@ class ShowcaseTest {
 	}
 	
 ////////////////////////////////////////// Create Account Page Test //////////////////////////////////////////////////////////////
-	
+//
 ////	lt6vc
 //	@Test
 //	void baseCaseCreateAccountTest() {
-////		[value, ntv6jq@virginia.edu (valid), Abc123!@#, match, clicked]
+////	[TuNhi, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123!@# (match), clicked]
 //		driver.findElement(By.linkText("Create an Account")).click();
 //		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 //		driver.findElement(By.id("lastname")).sendKeys("Vo");
@@ -81,9 +81,10 @@ class ShowcaseTest {
 //	
 ////	lt6vc
 //	@Test
-//	void noNameValidEmailStrongPasswordMatchedSubmitTest() {
-////		[no value, abc@outlook.com (valid), Abc123!@#, match, clicked]
+//	void noFirstNameValidEmailStrongPasswordMatchedSubmitTest() {
+////		[“”, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123!@# (match), clicked]
 //		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("lastname")).sendKeys("Vo");
 //		driver.findElement(By.id("email_address")).sendKeys("abc@outlook.com");
 //		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
 //		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
@@ -91,14 +92,28 @@ class ShowcaseTest {
 //		assertEquals("This is a required field.", driver.findElement(By.id("firstname-error")).getText());
 //	}
 //	
+//	
+//	//lt6vc
+//	@Test
+//	void noLastNameValidEmailStrongPasswordMatchedSubmitTest() {
+//	//	[no value, abc@outlook.com (valid), Abc123!@#, match, clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+//		driver.findElement(By.id("email_address")).sendKeys("abc@outlook.com");
+//		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		assertEquals("This is a required field.", driver.findElement(By.id("lastname-error")).getText());
+//	}
+//	
 ////	lt6vc
 //	@Test
 //	void NameInvalidEmailStrongPasswordMatchedSubmitTest() {
-////		[value, abcdef (invalid), Abc123!@#, match, clicked]
+////	[TuNhi, Vo, ntv6jq (invalid), Abc123!@#, Abc123!@# (match), clicked]
 //		driver.findElement(By.linkText("Create an Account")).click();
 //		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 //		driver.findElement(By.id("lastname")).sendKeys("Vo");
-//		driver.findElement(By.id("email_address")).sendKeys("abcdef");
+//		driver.findElement(By.id("email_address")).sendKeys("ntv6jq");
 //		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
 //		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
 //		driver.findElement(By.cssSelector(".action.submit.primary")).click();
@@ -110,8 +125,59 @@ class ShowcaseTest {
 //	
 //	//lt6vc
 //	@Test
+//	void NameEmptyEmailStrongPasswordMatchedSubmitTest() {
+//	//[TuNhi, Vo, "", Abc123!@#, Abc123!@# (match), clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+//		driver.findElement(By.id("lastname")).sendKeys("Vo");
+//		driver.findElement(By.id("email_address")).sendKeys("");
+//		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//	
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		
+//		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("This is a required field."));
+//	}
+//	
+//	//ntv6jq
+//	@Test
+//	void NameValidEmailNoPasswordMatchedSubmitTest() {
+//	//[TuNhi, Vo, ntv6jq@virginia.edu (valid), “”, Abc123!@# (match), clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+//		driver.findElement(By.id("lastname")).sendKeys("Vo");
+//		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
+//		driver.findElement(By.id("password")).sendKeys("");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//	
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		
+//		assertTrue(driver.findElement(By.id("password-error")).getText().equals("This is a required field."));
+//	}
+//	
+//	//ntv6jq
+//	@Test
+//	void NameValidEmailPasswordEmptyMatchSubmitTest() {
+//	//[TuNhi, Vo, ntv6jq@virginia.edu (valid),Abc123!@#, “”,(match), clicked]
+//		driver.findElement(By.linkText("Create an Account")).click();
+//		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
+//		driver.findElement(By.id("lastname")).sendKeys("Vo");
+//		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
+//		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
+//		driver.findElement(By.id("password-confirmation")).sendKeys("");
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//	
+//		driver.findElement(By.cssSelector(".action.submit.primary")).click();
+//		
+//		assertTrue(driver.findElement(By.id("password-confirmation-error")).getText().equals("This is a required field."));
+//	}
+//	
+//	//lt6vc
+//	@Test
 //	void NameInvalidEmailWeakPasswordMatchedSubmitTest() {
-//	//	[value, ntv6jq@virginia.edu (valid), abcdef (weak passwd), match, clicked]
+//	//	[TuNhi, Vo, ntv6jq@virginia.edu (valid), abcdef, abcdef(match), clicked]
 //		driver.findElement(By.linkText("Create an Account")).click();
 //		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 //		driver.findElement(By.id("lastname")).sendKeys("Vo");
@@ -129,7 +195,7 @@ class ShowcaseTest {
 //	//lt6vc
 //	@Test
 //	void NameInvalidEmailStrongPasswordNotMatchedSubmitTest() {
-//	//	[value, ntv6jq@virginia.edu (valid), Abc123!@#, not matched, clicked]
+//	//	[TuNhi, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123 (unmatched), clicked]
 //		driver.findElement(By.linkText("Create an Account")).click();
 //		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 //		driver.findElement(By.id("lastname")).sendKeys("Vo");
@@ -142,13 +208,12 @@ class ShowcaseTest {
 //		
 //		assertEquals("Please enter the same value again.",
 //				driver.findElement(By.id("password-confirmation-error")).getText());
-//	}
-	
-	
+//	}	
+//	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+//	
 ////////////////////////////////////////// Sign in Page //////////////////////////////////////////////////////////////////////////
-	
+//	
 //	//lt6vc
 //	@Test
 //	void baseCaseSignInPageTest() {
@@ -234,9 +299,9 @@ class ShowcaseTest {
 //		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div[1]/div[2]/div")).isDisplayed());
 //		
 //	}
-	
+//	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+//	
 ////////////////////////////////////////////// Add to Cart From Gear ///////////////////////////////////////////////////////
 //	//lt6vc
 //	@Test
@@ -294,11 +359,11 @@ class ShowcaseTest {
 //		assertFalse(driver.getPageSource().contains("Affirm Water Bottle"));
 //		assertTrue(driver.getPageSource().contains("You have no items in your shopping cart"));
 //	}
-	
+//	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+//	
 ////////////////////////////////////////////// Advanced Search ///////////////////////////////////////////////////////////////////
-
+//
 ////	ntv6jq
 //	@Test	 
 //	void advanceBase() { 
