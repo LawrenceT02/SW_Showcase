@@ -75,7 +75,7 @@ class ShowcaseTest {
 //		assertTrue(driver.getPageSource().contains("Tunhi Vo"));
 //		assertTrue(driver.getPageSource().contains("ntv6jq@virginia.edu"));
 //	}
-	
+//	
 ////	lt6vc
 //	@Test
 //	void noNameValidEmailStrongPasswordMatchedSubmitTest() {
@@ -87,7 +87,7 @@ class ShowcaseTest {
 //		driver.findElement(By.cssSelector(".action.submit.primary")).click();
 //		assertEquals("This is a required field.", driver.findElement(By.id("firstname-error")).getText());
 //	}
-	
+//	
 ////	lt6vc
 //	@Test
 //	void NameInvalidEmailStrongPasswordMatchedSubmitTest() {
@@ -104,7 +104,7 @@ class ShowcaseTest {
 //		
 //		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("Please enter a valid email address (Ex: johndoe@domain.com)."));
 //	}
-	
+//	
 //	//lt6vc
 //	@Test
 //	void NameInvalidEmailWeakPasswordMatchedSubmitTest() {
@@ -122,7 +122,7 @@ class ShowcaseTest {
 //				driver.findElement(By.id("password-error")).getText());
 //		
 //	}
-	
+//	
 //	//lt6vc
 //	@Test
 //	void NameInvalidEmailStrongPasswordNotMatchedSubmitTest() {
@@ -169,7 +169,7 @@ class ShowcaseTest {
 //			assertTrue(driver.getPageSource().contains("Tunhi Vo"));
 //		}
 //	}
-	
+//	
 //	//lt6vc
 //	@Test
 //	void valueInvalidCorrectEmailCorrectPasswdSubmitTest() {
@@ -183,7 +183,7 @@ class ShowcaseTest {
 //		// if fails try or'ing t with line below:
 ////		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("Please enter a valid email address (Ex: johndoe@domain.com)."));
 //	}
-	
+//	
 //	//lt6vc
 //	@Test
 //	void valueValidIncorrectEmailWrongPasswdSubmitTest() {
@@ -195,7 +195,7 @@ class ShowcaseTest {
 //		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
 //		
 //	}
-	
+//	
 //	//lt6vc
 //	@Test
 //	void valueValidCorrectEmailWrongPasswdSubmitTest() {
@@ -221,7 +221,7 @@ class ShowcaseTest {
 //		driver.findElement(By.id("search")).sendKeys(Keys.RETURN);
 //		assertTrue(driver.findElement(By.className("product-image-photo")).isDisplayed());
 //	}
-	
+//	
 //	//lt6vc
 //	@Test
 //	void valueAlphabeticalInvalidSearchSubmitTest() {
@@ -253,7 +253,7 @@ class ShowcaseTest {
 //		driver.get("https://magento.softwaretestingboard.com/checkout/cart/");
 //		assertTrue(driver.getPageSource().contains("Affirm Water Bottle"));
 //	}
-	
+//	
 //	//lt6vc
 //	@Test
 //	void GearClckItemSelNegQtyAddCartTest() {
@@ -272,7 +272,7 @@ class ShowcaseTest {
 //		assertFalse(driver.getPageSource().contains("Affirm Water Bottle"));
 //		assertTrue(driver.getPageSource().contains("You have no items in your shopping cart"));
 //	}
-	
+//	
 //	//lt6vc
 //	@Test
 //	void GearClckItemSelZeroQtyAddCartTest() {
@@ -295,7 +295,184 @@ class ShowcaseTest {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 ////////////////////////////////////////////// Advanced Search ///////////////////////////////////////////////////////////////////
-	
+
+////	ntv6jq
+//	@Test	 
+//	void advanceBase() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.getPageSource().contains("Jacket"));
+//	}
+//	
+//	//	ntv6jq
+//	@Test	 
+//	void advanceEmpty() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
+//	}
+//		
+//	//ntv6jq
+//	@Test	 
+//	void advanceEmptyName() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.getPageSource().contains("Jacket"));
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advanceEmptyDesc() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.getPageSource().contains("Jacket"));
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advanceEmptyShortDesc() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.getPageSource().contains("Jacket"));
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advanceEmptySKU() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.getPageSource().contains("Jacket"));
+//	//	assertTrue(driver.findElement(By.className("product-image-photo")).isDisplayed());
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advanceInvalidName() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("abcdef");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertFalse(driver.getPageSource().contains("Juno Jacket"));
+//	}
+//		
+//	//ntv6jq
+//	@Test	 
+//	void advanceInvalidDesc() { 	
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("abcdef");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertFalse(driver.getPageSource().contains("Juno Jacket"));
+//		}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advanceInvalidShortDesc() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("abcdef");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertFalse(driver.getPageSource().contains("Juno Jacket"));
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advanceInvalidSKU() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("abcdef");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("0");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertFalse(driver.getPageSource().contains("Juno Jacket"));
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advanceAlphPrice() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("A");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.id("price-error")).isDisplayed());
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advanceNegPrice() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("-10");
+//		driver.findElement(By.id("price_to")).sendKeys("");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.getPageSource().contains("-10"));
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void advancePosPrice() { 
+//		driver.findElement(By.linkText("Advanced Search")).click();
+//		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
+//		driver.findElement(By.id("sku")).sendKeys("WJ06");
+//		driver.findElement(By.id("description")).sendKeys("Jacket");
+//		driver.findElement(By.id("short_description")).sendKeys("Jacket");
+//		driver.findElement(By.id("price")).sendKeys("1");
+//		driver.findElement(By.id("price_to")).sendKeys("80");
+//		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.getPageSource().contains("Jacket"));
+//	}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 ////////////////////////////////////////////// Checkout //////////////////////////////////////////////////////////////////////////
