@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,6 +16,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.JavascriptExecutor;
 
 class ShowcaseTest {
 	private WebDriver driver;
@@ -225,6 +228,48 @@ class ShowcaseTest {
 //		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div[1]/div[2]/div")).isDisplayed());
 //		
 //	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+////////////////////////////////////////////// Add to Cart From What's New ///////////////////////////////////////////////////////
+//	//lt6vc
+//	@Test								// Can't get selenium to click on size or color button
+//	void baseCaseAddtoCartTest() {
+//		JavascriptExecutor js = (JavascriptExecutor) driver;
+//		driver.findElement(By.linkText("What's New")).click();
+//		driver.findElement(By.xpath("/html/body/div[2]/main/div[4]/div[1]/div[1]/div[3]/div/div/ol/li[1]/div/div/strong/a")).click(); // xpath for Phoebe Zipper Sweatshirt
+//		js.executeScript("document.getElementById('option-label-size-143-item-167').click();");
+////		driver.findElement(By.id("option-label-size-143-item-167")).click(); // xpath for small (CANT FIND ELEMENT)
+////		driver.findElement(By.id("option-label-color-93-item-52")).click();
+//		driver.findElement(By.id("qty")).clear();
+//		driver.findElement(By.id("qty")).sendKeys("1");
+//		WebElement element = driver.findElement(By.id("product-addtocart-button"));
+//		js.executeScript("arguments[0].click();", element);
+//		driver.get("https://magento.softwaretestingboard.com/checkout/cart/");
+//		driver.getPageSource().contains("Phoebe Zipper Sweatshirt");
+//	}
+	
+	//lt6vc
+	@Test
+	void tabClickedItemSelectedNoSizeGrayCartClickedTest() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		driver.findElement(By.linkText("What's New")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/main/div[4]/div[1]/div[1]/div[3]/div/div/ol/li[1]/div/div/strong/a")).click(); // xpath for Phoebe Zipper Sweatshirt
+		driver.findElement(By.id("qty")).clear();
+		driver.findElement(By.id("qty")).sendKeys("1");
+		WebElement element = driver.findElement(By.id("product-addtocart-button"));
+		js.executeScript("arguments[0].click();", element);
+		js.executeScript("arguments[0].click();", element);
+		element.click();
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+////////////////////////////////////////////// Advanced Search ///////////////////////////////////////////////////////////////////
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+////////////////////////////////////////////// Checkout //////////////////////////////////////////////////////////////////////////
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
