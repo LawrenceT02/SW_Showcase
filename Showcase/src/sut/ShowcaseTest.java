@@ -24,6 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 
 class ShowcaseTest {
+
 	private WebDriver driver;
 	private String url = "https://magento.softwaretestingboard.com/";
 	JavascriptExecutor js;
@@ -38,7 +39,8 @@ class ShowcaseTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		System.setProperty("webdriver.gecko.driver", "C:/Users/lawre/Documents/UVA/F23/SWTesting/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver", "C:/Users/votun/Downloads/geckodriver-v0.33.0-win64/geckodriver.exe");
+//		System.setProperty("webdriver.gecko.driver", "C:/Users/lawre/Documents/UVA/F23/SWTesting/geckodriver.exe");
 //		add your driver directory here
 		
 	// create an instance of the web browser and open it    
@@ -60,6 +62,7 @@ class ShowcaseTest {
 	void baseCaseCreateAccountTest() {
 //	[TuNhi, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123!@# (match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
@@ -74,7 +77,6 @@ class ShowcaseTest {
 			driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
 			driver.findElement(By.id("send2")).click();
 		}
-		
 		assertTrue(driver.getPageSource().contains("Tunhi Vo"));
 		assertTrue(driver.getPageSource().contains("ntv6jq@virginia.edu"));
 	}
@@ -82,8 +84,9 @@ class ShowcaseTest {
 //	lt6vc
 	@Test
 	void noFirstNameValidEmailStrongPasswordMatchedSubmitTest() {
-//		[ÔøΩÔøΩ, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123!@# (match), clicked]
+//		[  , Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123!@# (match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("abc@outlook.com");
 		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
@@ -92,12 +95,12 @@ class ShowcaseTest {
 		assertEquals("This is a required field.", driver.findElement(By.id("firstname-error")).getText());
 	}
 	
-	
 	//lt6vc
 	@Test
 	void noLastNameValidEmailStrongPasswordMatchedSubmitTest() {
 	//	[no value, abc@outlook.com (valid), Abc123!@#, match, clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("email_address")).sendKeys("abc@outlook.com");
 		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
@@ -111,15 +114,13 @@ class ShowcaseTest {
 	void NameInvalidEmailStrongPasswordMatchedSubmitTest() {
 //	[TuNhi, Vo, ntv6jq (invalid), Abc123!@#, Abc123!@# (match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("ntv6jq");
 		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
 		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
 		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-		
 		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("Please enter a valid email address (Ex: johndoe@domain.com)."));
 	}
 	
@@ -128,49 +129,42 @@ class ShowcaseTest {
 	void NameEmptyEmailStrongPasswordMatchedSubmitTest() {
 	//[TuNhi, Vo, "", Abc123!@#, Abc123!@# (match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("");
 		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
 		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
 		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-	
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-		
 		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("This is a required field."));
 	}
 	
 	//ntv6jq
 	@Test
 	void NameValidEmailNoPasswordMatchedSubmitTest() {
-	//[TuNhi, Vo, ntv6jq@virginia.edu (valid), ÔøΩÔøΩ, Abc123!@# (match), clicked]
+	//[TuNhi, Vo, ntv6jq@virginia.edu (valid),   , Abc123!@# (match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
 		driver.findElement(By.id("password")).sendKeys("");
 		driver.findElement(By.id("password-confirmation")).sendKeys("Abc123!@#");
 		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-	
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-		
-		assertTrue(driver.findElement(By.id("password-error")).getText().equals("This is a required field."));
 	}
 	
 	//ntv6jq
 	@Test
 	void NameValidEmailPasswordEmptyMatchSubmitTest() {
-	//[TuNhi, Vo, ntv6jq@virginia.edu (valid),Abc123!@#, ÔøΩÔøΩ,(match), clicked]
+	//[TuNhi, Vo, ntv6jq@virginia.edu (valid),Abc123!@#,   ,(match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
 		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
 		driver.findElement(By.id("password-confirmation")).sendKeys("");
 		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-	
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-		
 		assertTrue(driver.findElement(By.id("password-confirmation-error")).getText().equals("This is a required field."));
 	}
 	
@@ -179,17 +173,15 @@ class ShowcaseTest {
 	void NameInvalidEmailWeakPasswordMatchedSubmitTest() {
 	//	[TuNhi, Vo, ntv6jq@virginia.edu (valid), abcdef, abcdef(match), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
 		driver.findElement(By.id("password")).sendKeys("abcdef");
 		driver.findElement(By.id("password-confirmation")).sendKeys("abcdef");
 		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-	
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
 		assertEquals("Minimum length of this field must be equal or greater than 8 symbols. Leading and trailing spaces will be ignored.",
 				driver.findElement(By.id("password-error")).getText());
-		
 	}
 	
 	//lt6vc
@@ -197,15 +189,13 @@ class ShowcaseTest {
 	void NameInvalidEmailStrongPasswordNotMatchedSubmitTest() {
 	//	[TuNhi, Vo, ntv6jq@virginia.edu (valid), Abc123!@#, Abc123 (unmatched), clicked]
 		driver.findElement(By.linkText("Create an Account")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("firstname")).sendKeys("Tunhi");
 		driver.findElement(By.id("lastname")).sendKeys("Vo");
 		driver.findElement(By.id("email_address")).sendKeys("ntv6jq@virginia.edu");
 		driver.findElement(By.id("password")).sendKeys("Abc123!@#");
 		driver.findElement(By.id("password-confirmation")).sendKeys("abcdef");
 		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-	
-		driver.findElement(By.cssSelector(".action.submit.primary")).click();
-		
 		assertEquals("Please enter the same value again.",
 				driver.findElement(By.id("password-confirmation-error")).getText());
 	}	
@@ -247,7 +237,6 @@ class ShowcaseTest {
 		driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
 		driver.findElement(By.id("send2")).click();
 		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
-		
 		// if fails try or'ing t with line below:
 //		assertTrue(driver.findElement(By.id("email_address-error")).getText().equals("Please enter a valid email address (Ex: johndoe@domain.com)."));
 	}
@@ -261,7 +250,6 @@ class ShowcaseTest {
 		driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
 		driver.findElement(By.id("send2")).click();
 		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
-		
 	}
 	
 	//lt6vc
@@ -273,8 +261,8 @@ class ShowcaseTest {
 		driver.findElement(By.id("pass")).sendKeys("abcdef");
 		driver.findElement(By.id("send2")).click();
 		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
-		
 	}
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 ////////////////////////////////////////////// Search Bar Function ///////////////////////////////////////////////////////////////
@@ -295,7 +283,6 @@ class ShowcaseTest {
 		driver.findElement(By.id("search")).sendKeys("tower");
 		driver.findElement(By.id("search")).sendKeys(Keys.RETURN);
 		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div[1]/div[2]/div")).isDisplayed());
-		
 	}
 	
 
@@ -367,162 +354,178 @@ class ShowcaseTest {
 	@Test	 
 	void advanceBase() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertTrue(driver.getPageSource().contains("Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		driver.findElement(By.linkText("Juno Jacket")).click();
+		assertTrue(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/juno-jacket.html"));
 	}
 	
 	//	ntv6jq
 	@Test	 
 	void advanceEmpty() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div/div")).isDisplayed());
+		driver.navigate().refresh();
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		assertTrue(driver.getPageSource().contains("Search Settings"));
 	}
 		
 	//ntv6jq
 	@Test	 
 	void advanceEmptyName() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertTrue(driver.getPageSource().contains("Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		driver.findElement(By.linkText("Juno Jacket")).click();
+		assertTrue(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/juno-jacket.html"));
 	}
 	
 	//ntv6jq
 	@Test	 
 	void advanceEmptyDesc() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertTrue(driver.getPageSource().contains("Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		driver.findElement(By.linkText("Juno Jacket")).click();
+		assertTrue(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/juno-jacket.html"));
 	}
 	
 	//ntv6jq
 	@Test	 
 	void advanceEmptyShortDesc() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertTrue(driver.getPageSource().contains("Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		driver.findElement(By.linkText("Juno Jacket")).click();
+		assertTrue(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/juno-jacket.html"));
 	}
 	
 	//ntv6jq
 	@Test	 
 	void advanceEmptySKU() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertTrue(driver.getPageSource().contains("Jacket"));
-	//	assertTrue(driver.findElement(By.className("product-image-photo")).isDisplayed());
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		driver.findElement(By.linkText("Juno Jacket")).click();
+		assertTrue(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/juno-jacket.html"));
 	}
 	
 	//ntv6jq
 	@Test	 
 	void advanceInvalidName() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("abcdef");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertFalse(driver.getPageSource().contains("Juno Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		assertEquals(driver.findElement(By.xpath("//*[@id=\"maincontent\"]/div[3]/div[1]/div[2]")).getText(), "We can't find any items matching these search criteria. Modify your search.");
 	}
 		
 	//ntv6jq
 	@Test	 
 	void advanceInvalidDesc() { 	
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("abcdef");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertFalse(driver.getPageSource().contains("Juno Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		assertEquals(driver.findElement(By.xpath("//*[@id=\"maincontent\"]/div[3]/div[1]/div[2]")).getText(), "We can't find any items matching these search criteria. Modify your search.");
 		}
 	
 	//ntv6jq
 	@Test	 
 	void advanceInvalidShortDesc() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("abcdef");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertFalse(driver.getPageSource().contains("Juno Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		assertEquals(driver.findElement(By.xpath("//*[@id=\"maincontent\"]/div[3]/div[1]/div[2]")).getText(), "We can't find any items matching these search criteria. Modify your search.");
 	}
 	
 	//ntv6jq
 	@Test	 
 	void advanceInvalidSKU() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("abcdef");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("0");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertFalse(driver.getPageSource().contains("Juno Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		assertEquals(driver.findElement(By.xpath("//*[@id=\"maincontent\"]/div[3]/div[1]/div[2]")).getText(), "We can't find any items matching these search criteria. Modify your search.");
 	}
 	
 	//ntv6jq
 	@Test	 
 	void advanceAlphPrice() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("A");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertTrue(driver.findElement(By.id("price-error")).isDisplayed());
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		assertEquals(driver.findElement(By.id("price-error")).getText(), "Please enter a valid number.");
 	}
 	
 	//ntv6jq
 	@Test	 
 	void advanceNegPrice() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("-10");
 		driver.findElement(By.id("price_to")).sendKeys("");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
 		assertTrue(driver.getPageSource().contains("-10"));
 	}
 	
@@ -530,14 +533,16 @@ class ShowcaseTest {
 	@Test	 
 	void advancePosPrice() { 
 		driver.findElement(By.linkText("Advanced Search")).click();
+		driver.navigate().refresh();
 		driver.findElement(By.id("name")).sendKeys("Juno Jacket");
 		driver.findElement(By.id("sku")).sendKeys("WJ06");
 		driver.findElement(By.id("description")).sendKeys("Jacket");
 		driver.findElement(By.id("short_description")).sendKeys("Jacket");
 		driver.findElement(By.id("price")).sendKeys("1");
 		driver.findElement(By.id("price_to")).sendKeys("80");
-		driver.findElement(By.id("name")).sendKeys(Keys.RETURN);
-		assertTrue(driver.getPageSource().contains("Jacket"));
+		driver.findElement(By.cssSelector("#form-validate > div > div > button")).click();
+		driver.findElement(By.linkText("Juno Jacket")).click();
+		assertTrue(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/juno-jacket.html"));
 	}
 
 
@@ -653,7 +658,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[‚Äú‚Äù, Vo, 123 Sesame Street, Sunflower, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
+//		[ìî, Vo, 123 Sesame Street, Sunflower, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -711,7 +716,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[Tunhi, ‚Äú‚Äù, 123 Sesame Street, Sunflower, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
+//		[Tunhi, ìî, 123 Sesame Street, Sunflower, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -739,7 +744,6 @@ class ShowcaseTest {
         } catch (InterruptedException e) {
         }
 		assertFalse(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/checkout/#payment"));
-		
 	}
 	
 	//lt6vc
@@ -769,7 +773,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[Tunhi, Vo, ‚Äú‚Äù, Sunflower, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
+//		[Tunhi, Vo, ìî, Sunflower, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -827,7 +831,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[Tunhi, Vo, 123 Sesame Street, ‚Äú‚Äù, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
+//		[Tunhi, Vo, 123 Sesame Street, ìî, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -885,7 +889,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[Tunhi, Vo, 123 Sesame Street, Sunflower, ‚Äú‚Äù, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
+//		[Tunhi, Vo, 123 Sesame Street, Sunflower, ìî, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -943,7 +947,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, ‚Äú‚Äù, Virginia, United States, Table Rate, Clicked, Clicked]
+//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, ìî, Virginia, United States, Table Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -1001,7 +1005,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, 4349240311, ‚Äú‚Äù, United States, Table Rate, Clicked, Clicked]
+//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, 4349240311, ìî, United States, Table Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -1029,7 +1033,6 @@ class ShowcaseTest {
         } catch (InterruptedException e) {
         }
 		assertFalse(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/checkout/#payment"));
-		
 	}
 	
 	//lt6vc
@@ -1059,7 +1062,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, 4349240311, Virginia, ‚Äú‚Äù, Table Rate, Clicked, Clicked]
+//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, 4349240311, Virginia, ìî, Table Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -1118,7 +1121,7 @@ class ShowcaseTest {
 		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
 		///////// End Setup /////////
 		
-//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, ‚Äú‚Äù, Virginia, United States, Fixed Rate, Clicked, Clicked]
+//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, ìî, Virginia, United States, Fixed Rate, Clicked, Clicked]
 		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
 		try {
             Thread.sleep(3000); // 5000 milliseconds = 5 seconds
@@ -1179,7 +1182,7 @@ class ShowcaseTest {
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-//////////////////////////////////////////////Writing a Review//////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////Writing a Review//////////////////////////////////////////////////////////////////////////
 
 	//ntv6jq
 	@Test	
@@ -1187,12 +1190,13 @@ class ShowcaseTest {
 		js = (JavascriptExecutor) driver;
 		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
 		driver.findElement(By.id("tab-label-reviews")).click();
+		driver.navigate().refresh();
 		WebElement element = driver.findElement(By.id("Rating_5"));
 		js.executeScript("arguments[0].click();", element);
 		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
 		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
 		driver.findElement(By.id("review_field")).sendKeys("This is a review");
-		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+		driver.findElement(By.xpath("//*[@id=\"review-form\"]/div/div/button/span")).click();
 		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[1]/div[2]/div/div")).isDisplayed());
 	}
 	
@@ -1202,12 +1206,13 @@ class ShowcaseTest {
 		js = (JavascriptExecutor) driver;
 		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
 		driver.findElement(By.id("tab-label-reviews")).click();
+		driver.navigate().refresh();
 		WebElement element = driver.findElement(By.id("Rating_5"));
 		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
 		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
 		driver.findElement(By.id("review_field")).sendKeys("This is a review");
-		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
-		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+		driver.findElement(By.xpath("//*[@id=\"review-form\"]/div/div/button/span")).click();
+		assertTrue(driver.findElement(By.id("ratings[4]-error")).isDisplayed());
 	}
 	
 	//ntv6jq
@@ -1216,13 +1221,14 @@ class ShowcaseTest {
 		js = (JavascriptExecutor) driver;
 		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
 		driver.findElement(By.id("tab-label-reviews")).click();
+		driver.navigate().refresh();
 		WebElement element = driver.findElement(By.id("Rating_5"));
 		js.executeScript("arguments[0].click();", element);
 		driver.findElement(By.id("nickname_field")).sendKeys("");
 		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
 		driver.findElement(By.id("review_field")).sendKeys("This is a review");
-		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
-		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+		driver.findElement(By.xpath("//*[@id=\"review-form\"]/div/div/button/span")).click();
+		assertTrue(driver.findElement(By.id("nickname_field-error")).isDisplayed());
 	}
 	
 	//ntv6jq
@@ -1231,13 +1237,14 @@ class ShowcaseTest {
 		js = (JavascriptExecutor) driver;
 		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
 		driver.findElement(By.id("tab-label-reviews")).click();
+		driver.navigate().refresh();
 		WebElement element = driver.findElement(By.id("Rating_5"));
 		js.executeScript("arguments[0].click();", element);
 		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
 		driver.findElement(By.id("summary_field")).sendKeys("");
 		driver.findElement(By.id("review_field")).sendKeys("This is a review");
-		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
-		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+		driver.findElement(By.xpath("//*[@id=\"review-form\"]/div/div/button/span")).click();
+		assertTrue(driver.findElement(By.id("summary_field-error")).isDisplayed());
 	}
 	
 	//ntv6jq
@@ -1246,13 +1253,14 @@ class ShowcaseTest {
 		js = (JavascriptExecutor) driver;
 		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
 		driver.findElement(By.id("tab-label-reviews")).click();
+		driver.navigate().refresh();
 		WebElement element = driver.findElement(By.id("Rating_5"));
 		js.executeScript("arguments[0].click();", element);
 		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
 		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
 		driver.findElement(By.id("review_field")).sendKeys("");
-		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
-		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+		driver.findElement(By.xpath("//*[@id=\"review-form\"]/div/div/button/span")).click();
+		assertTrue(driver.findElement(By.id("review_field-error")).isDisplayed());
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
