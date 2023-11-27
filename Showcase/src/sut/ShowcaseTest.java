@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.security.Key;
 import java.time.Duration;
 
 import org.junit.jupiter.api.AfterAll;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -476,6 +478,88 @@ class ShowcaseTest {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 ////////////////////////////////////////////// Checkout //////////////////////////////////////////////////////////////////////////
+	//lt6vc
+	@Test
+	void GearClckItemSelZeroQtyAddCartTest() {
+		///////// Setup /////////
+		driver.findElement(By.linkText("Sign In")).click();
+		driver.navigate().refresh();
+		driver.findElement(By.id("email")).sendKeys("ntv6jq@virginia.edu");
+		driver.findElement(By.id("pass")).sendKeys("Abc123!@#");
+		driver.findElement(By.id("send2")).click();
+		driver.get("https://magento.softwaretestingboard.com/affirm-water-bottle.html");
+		driver.navigate().refresh();
+		driver.findElement(By.id("qty")).clear();
+		driver.findElement(By.id("qty")).sendKeys("1");
+		driver.findElement(By.id("qty")).sendKeys(Keys.TAB, Keys.RETURN);
+		try {
+            Thread.sleep(1500); // 5000 milliseconds = 5 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+		driver.get("https://magento.softwaretestingboard.com/checkout/cart/");
+		try {
+            Thread.sleep(1500); // 5000 milliseconds = 5 seconds
+        } catch (InterruptedException e) {
+        }
+		driver.findElement(By.xpath("/html/body/div[2]/main/div[3]/div/div[2]/div[1]/ul/li[1]/button")).click();
+		///////// End Setup /////////
+		
+//		[Tunhi, Vo, 123 Sesame Street, Sunflower, 22904, 4349240311, Virginia, United States, Table Rate, Clicked, Clicked]
+		driver.get("https://magento.softwaretestingboard.com/checkout/#shipping"); //debugging
+		try {
+            Thread.sleep(3000); // 5000 milliseconds = 5 seconds
+        } catch (InterruptedException e) {
+        }
+		WebElement shipping = driver.findElement(By.tagName("body"));
+		shipping.sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.RETURN);
+		try {
+            Thread.sleep(1500); // 5000 milliseconds = 5 seconds
+        } catch (InterruptedException e) {
+        }
+		shipping.sendKeys(Keys.TAB, Keys.TAB,
+				"Tunhi", Keys.TAB, 
+				"Vo", Keys.TAB,
+				Keys.TAB,
+				"123 Sesame Street", Keys.TAB, Keys.TAB, Keys.TAB,
+				"Sunflower", Keys.TAB,
+				"V", Keys.DOWN, Keys.DOWN, Keys.RETURN, Keys.TAB,
+				"22904", Keys.TAB, Keys.TAB,
+				"4349240311", Keys.TAB, Keys.TAB,
+				Keys.TAB, Keys.RETURN
+				);
+		try {
+            Thread.sleep(1500); // 5000 milliseconds = 5 seconds
+        } catch (InterruptedException e) {
+        }
+		shipping.sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.UP, Keys.TAB, Keys.RETURN);
+		try {
+            Thread.sleep(1500); // 5000 milliseconds = 5 seconds
+        } catch (InterruptedException e) {
+        }
+		WebElement payment = driver.findElement(By.tagName("body"));
+		payment.sendKeys(Keys.TAB, Keys.RETURN);
+		try {
+            Thread.sleep(3000); // 5000 milliseconds = 5 seconds
+        } catch (InterruptedException e) {
+        }
+		System.out.println(driver.getCurrentUrl());
+		assertTrue(driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/checkout/onepage/success/"));
+		
+		// clear address entries
+		driver.get("https://magento.softwaretestingboard.com/customer/address/");
+		WebElement delete = driver.findElement(By.id("search"));
+		delete.click();
+		delete.sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.RETURN);
+		try {
+          Thread.sleep(3000); // 5000 milliseconds = 5 seconds
+	      } catch (InterruptedException e) {
+	      }
+		delete.sendKeys(Keys.RETURN);
+		delete = driver.findElement(By.xpath("/html/body/div[2]/footer/div/ul/li[3]/a"));
+		delete.sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.RETURN);
+		
+	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
