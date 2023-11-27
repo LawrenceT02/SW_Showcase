@@ -26,6 +26,7 @@ import org.openqa.selenium.JavascriptExecutor;
 class ShowcaseTest {
 	private WebDriver driver;
 	private String url = "https://magento.softwaretestingboard.com/";
+	JavascriptExecutor js;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -561,6 +562,84 @@ class ShowcaseTest {
 		
 	}
 	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+//////////////////////////////////////////////Writing a Review//////////////////////////////////////////////////////////////////////////
+
+//	//ntv6jq
+//	@Test	
+//	void reviewBase() { 	
+//		js = (JavascriptExecutor) driver;
+//		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+//		driver.findElement(By.id("tab-label-reviews")).click();
+//		WebElement element = driver.findElement(By.id("Rating_5"));
+//		js.executeScript("arguments[0].click();", element);
+//		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
+//		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
+//		driver.findElement(By.id("review_field")).sendKeys("This is a review");
+//		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.xpath("/html/body/div[2]/main/div[1]/div[2]/div/div")).isDisplayed());
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void reviewNostars() { 	
+//		js = (JavascriptExecutor) driver;
+//		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+//		driver.findElement(By.id("tab-label-reviews")).click();
+//		WebElement element = driver.findElement(By.id("Rating_5"));
+//		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
+//		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
+//		driver.findElement(By.id("review_field")).sendKeys("This is a review");
+//		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void reviewEmptyName() { 	
+//		js = (JavascriptExecutor) driver;
+//		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+//		driver.findElement(By.id("tab-label-reviews")).click();
+//		WebElement element = driver.findElement(By.id("Rating_5"));
+//		js.executeScript("arguments[0].click();", element);
+//		driver.findElement(By.id("nickname_field")).sendKeys("");
+//		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
+//		driver.findElement(By.id("review_field")).sendKeys("This is a review");
+//		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void reviewEmptySummary() { 	
+//		js = (JavascriptExecutor) driver;
+//		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+//		driver.findElement(By.id("tab-label-reviews")).click();
+//		WebElement element = driver.findElement(By.id("Rating_5"));
+//		js.executeScript("arguments[0].click();", element);
+//		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
+//		driver.findElement(By.id("summary_field")).sendKeys("");
+//		driver.findElement(By.id("review_field")).sendKeys("This is a review");
+//		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+//	}
+//	
+//	//ntv6jq
+//	@Test	 
+//	void reviewEmptyReview() { 	
+//		js = (JavascriptExecutor) driver;
+//		driver.get("https://magento.softwaretestingboard.com/didi-sport-watch.html");
+//		driver.findElement(By.id("tab-label-reviews")).click();
+//		WebElement element = driver.findElement(By.id("Rating_5"));
+//		js.executeScript("arguments[0].click();", element);
+//		driver.findElement(By.id("nickname_field")).sendKeys("TuNhi");
+//		driver.findElement(By.id("summary_field")).sendKeys("Watch review");
+//		driver.findElement(By.id("review_field")).sendKeys("");
+//		driver.findElement(By.id("nickname_field")).sendKeys(Keys.RETURN);
+//		assertTrue(driver.findElement(By.cssSelector("div.messages:nth-child(1)")).isDisplayed());
+//	}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
